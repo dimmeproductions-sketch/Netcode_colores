@@ -27,7 +27,7 @@ namespace HelloWorld
             {
                 StatusLabels();
 
-                SubmitNewPosition();
+                SubmitColorChange();
             }
 
             GUILayout.EndArea();
@@ -45,25 +45,24 @@ namespace HelloWorld
             var mode = m_NetworkManager.IsHost ?
                 "Host" : m_NetworkManager.IsServer ? "Server" : "Client";
 
-            GUILayout.Label("Transport: " +
-                m_NetworkManager.NetworkConfig.NetworkTransport.GetType().Name);
+            GUILayout.Label("Transport: " + m_NetworkManager.NetworkConfig.NetworkTransport.GetType().Name);
             GUILayout.Label("Mode: " + mode);
         }
 
-        private void SubmitNewPosition()
+        private void SubmitColorChange()
         {
-            if (GUILayout.Button(m_NetworkManager.IsServer ? "Move" : "Request Position Change"))
+            if (GUILayout.Button(m_NetworkManager.IsServer ? "Change color" : "Request color change"))
             {
                 if (m_NetworkManager.IsServer && !m_NetworkManager.IsClient)
                 {
                     foreach (ulong uid in m_NetworkManager.ConnectedClientsIds)
-                        m_NetworkManager.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<HelloWorldPlayer>().Move();
+                        m_NetworkManager.SpawnManager.GetPlayerNetworkObject(uid).GetComponent<HelloWorldPlayer>().ChangeColor();
                 }
                 else
                 {
                     var playerObject = m_NetworkManager.SpawnManager.GetLocalPlayerObject();
                     var player = playerObject.GetComponent<HelloWorldPlayer>();
-                    player.Move();
+                    player.ChangeColor();
                 }
             }
         }
