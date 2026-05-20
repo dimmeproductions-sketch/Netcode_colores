@@ -3,10 +3,6 @@ using UnityEngine;
 
 namespace HelloWorld
 {
-    /// <summary>
-    /// Add this component to the same GameObject as
-    /// the NetworkManager component.
-    /// </summary>
     public class HelloWorldManager : MonoBehaviour
     {
         private NetworkManager m_NetworkManager;
@@ -41,12 +37,6 @@ namespace HelloWorld
             if (GUILayout.Button("Host")) m_NetworkManager.StartHost();
             if (GUILayout.Button("Client")) m_NetworkManager.StartClient();
             if (GUILayout.Button("Server")) m_NetworkManager.StartServer();
-        }
-
-        private void SetupConnectionApproval()
-        {
-            m_NetworkManager.NetworkConfig.ConnectionApproval = true;
-            m_NetworkManager.ConnectionApprovalCallback = ApprovalCheck;
         }
 
         private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
